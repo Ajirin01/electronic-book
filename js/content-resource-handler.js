@@ -61,7 +61,7 @@ function loadPdf(content){
 
     pdfViewer = document.getElementById('pdfViewer'+ content.id)
 
-    pdfUrl = 'http://localhost/bookStoreTemplate/contents/'+ content_title + "."+ content_extention;
+    pdfUrl = 'contents/'+ content_title + "."+ content_extention;
 
 
     pdfjsLib.getDocument(pdfUrl).promise.then(function(doc) {
