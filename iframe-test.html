@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+  <style>
+    #pdfViewer {
+      width: 100%;
+      height: 500px;
+    }
+
+    canvas{
+      width: 100%;
+      height: inherit;
+    }
+  </style>
+  <title>PDF Viewer</title>
+</head>
+<body>
+
+<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#pdfModal">
+  Open PDF
+</button>
+
+<div class="modal fade" id="pdfModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">PDF Viewer</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div id="modal-body" class="modal-body">
+        <div id="pdfViewer"></div>
+        <div>
+          <button id="prevPage">Previous Page</button>
+          <span id="currentPage"></span>
+          <button id="nextPage">Next Page</button>
+          <input type="number" id="pageNumberInput" placeholder="Go to Page">
+          <button id="goToPageButton">Go</button>
+          <button id="downloadButton">Download PDF</button> <!-- Add this button -->
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.3/dist/umd/popper.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
+<!-- PDF.js library -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/2.11.338/pdf.js"></script>
+<script>
+  var pdfViewer = document.getElementById('pdfViewer');
+  var prevButton = document.getElementById('prevPage');
+  var nextButton = document.getElementById('nextPage');
+  var goToPageButton = document.getElementById('goToPageButton');
+  var pageNumberInput = document.getElementById('pageNumberInput');
+  var currentPageSpan = document.getElementById('currentPage');
+
+  var pdfUrl = 'http://localhost/bookStoreTemplate/contents/Chapter%201.pdf';
+  var pdfDoc = null;
+  var currentPage = 1;
+  
+
+  function renderPage(pageNumber) {
+    pdfDoc.getPage(pageNumber).then(function(page) {
+      pdfViewer.innerHTML = '';
+
+      var canvas = document.createElement('canvas');
+      var context = canvas.getContext('2d');
+
+      canvas.height = page.view[3];
+      canvas.width = page.view[2];
+
+      pdfViewer.appendChild(canvas);
+
+      // Adjust the Y-axis to flip the image
+      var renderContext = {
+        canvasContext: context,
+        viewport: page.view,
+        transform: [1, 0, 0, -1, 0, page.view[3]], // Flip the Y-axis
+        scale: 2, // Increase the scale for higher resolution
+        antialiasing: true // Enable antialiasing
+      };
+
+      context.imageSmoothingEnabled = true;
+      
+
+      page.render(renderContext);
+      currentPageSpan.textContent = 'Page ' + pageNumber + ' of ' + pdfDoc.numPages;
+    });
+  }
+
+
+  document.getElementById('pdfViewer').style.height = "inherit"
+  document.getElementById('pdfViewer').style.width = "inherit"
+
+  pdfjsLib.getDocument(pdfUrl).promise.then(function(doc) {
+    pdfDoc = doc;
+    renderPage(currentPage);
+
+    prevButton.addEventListener('click', function() {
+      if (currentPage > 1) {
+        currentPage--;
+        renderPage(currentPage);
+      }
+    });
+
+    nextButton.addEventListener('click', function() {
+      if (currentPage < pdfDoc.numPages) {
+        currentPage++;
+        renderPage(currentPage);
+      }
+    });
+
+    goToPageButton.addEventListener('click', function() {
+      var requestedPage = parseInt(pageNumberInput.value, 10);
+      if (!isNaN(requestedPage) && requestedPage >= 1 && requestedPage <= pdfDoc.numPages) {
+        currentPage = requestedPage;
+        renderPage(currentPage);
+      } else {
+        alert('Invalid page number. Please enter a valid page number.');
+      }
+    });
+  });
+
+
+  
+  // Add an event listener to the download button
+  document.getElementById('downloadButton').addEventListener('click', function () {
+    // Get the current page number
+    var currentPage = pdfViewer.currentPageNumber;
+
+    // Create a link element with a download attribute
+    var link = document.createElement('a');
+    link.href = 'http://localhost/bookStoreTemplate/contents/Chapter%201.pdf';
+    link.download = 'Chapter_1.pdf';
+
+    // Append the link to the body and trigger a click event
+    document.body.appendChild(link);
+    link.click();
+
+    // Remove the link from the body
+    document.body.removeChild(link);
+  });
+</script>
+
+</body>
+</html>

@@ -41,6 +41,18 @@
 
     <!-- Customized Bootstrap Stylesheet -->
     <link href="shop/css/style.css" rel="stylesheet">
+
+    <style>
+        #pdfViewer {
+        width: 100%;
+        height: 500px;
+        }
+
+        canvas{
+        width: 100%;
+        height: inherit;
+        }
+    </style>
 </head>
 
 <body>
@@ -66,6 +78,32 @@
                 <li class="nav-item active">
                   <a class="nav-link" href="index.html">Home <span class="sr-only">(current)</span></a>
                 </li>
+
+                <li class="nav-item active">
+                  <div class="btn-group" style="margin-top: 8px">
+                      <a href="#" class="btn btn-sm btn-light dropdown-toggle" data-toggle="dropdown">Resources</a>
+                      <div class="dropdown-menu dropdown-menu-right">
+                          <button class="dropdown-item" type="button" data-toggle="modal" data-target="#constantsModal">Physical Constants</button>
+                          <button class="dropdown-item" type="button" data-toggle="modal" data-target="#calculatorModal">Scientific Calculator</button>
+                      </div>
+                  </div>
+                </li>
+                
+                <li class="nav-item active">
+                  <a class="nav-link" data-toggle="modal" data-target="#contentMenuModal" href="#Contents">Contents <span class="sr-only">(current)</span></a>
+                </li>
+
+                <!-- <li class="nav-item active" style="margin-left: 5px">
+                  <div class="btn-group" style="margin-top: 8px">
+                      <a href="#" class="btn btn-sm btn-light dropdown-toggle" data-toggle="dropdown">Contents</a>
+                      <div class="dropdown-menu dropdown-menu-right">
+                          <button class="dropdown-item" type="button" data-toggle="modal" data-target="#constantsModal">Physical Constants</button>
+                          <button class="dropdown-item" type="button" data-toggle="modal" data-target="#calculatorModal">Scientific Calculator</button>
+                      </div>
+                  </div>
+                </li> -->
+                
+                
                 <!-- <li class="nav-item">
                   <a class="nav-link" href="fruit.html"> Books</a>
                 </li>
@@ -309,15 +347,6 @@
               provided for download from the web. This text avoids unnecessary theoretical baggage, focusing on 
               fundamental understanding for effective circuit comprehension. It introduces only necessary basic 
               mathematical concepts and is suitable for introductory-level teaching of Electronics in all institutions.
-              
-              <!-- LTSpice and MATLAB are integrated into the course syllabus, allowing for self-directed learning and the 
-              exploration of "what-if" questions through simulation tasks. This approach supports the development and 
-              application of intuition, which is crucial in an engineering career. Graphical outputs are obtained from 
-              simulations to emphasize mathematical derivations and assumptions.
-              <br>
-              Overall, this text provides a comprehensive and practical approach to teaching Electronics, enabling 
-              students to build a solid foundation in the subject while incorporating simulation tools for enhanced 
-              learning -->
             </p>
             <div>
               <a href="" class="custom_dark-btn">
@@ -516,6 +545,69 @@
     </div>
   </section>
 
+  <div class="container modals-container">
+    <div class="modal fade" id="constantsModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+      <div class="modal-dialog modal-lg" role="document">
+          <div class="modal-content">
+              <div class="modal-header">
+                  <h5 class="modal-title" id="exampleModalLabel">Scientific Constants</h5>
+                  <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                  <span aria-hidden="true">&times;</span>
+                  </button>
+              </div>
+              <div class="modal-body">
+                <iframe src="https://chem.libretexts.org/Bookshelves/Ancillary_Materials/Reference/Units_and_Conversions/Physical_Constants?adaptView" width="100%" height="400px" loading="lazy"></iframe>
+              </div>
+          </div>
+        </div>
+    </div>
+
+    <div class="modal fade" id="calculatorModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-lg" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Scientific Calculator</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <iframe src="https://www.desmos.com/scientific"width="100%" height="250" loading="lazy"></iframe>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <div class="modal fade" id="contentMenuModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-lg" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Contents</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <ul>
+                        <?php
+                            $contents = file_get_contents("contents.json");
+
+                            foreach (json_decode($contents) as $key => $content) {
+                                echo "<li data-toggle='modal' data-target='#pdfModal$content->id' onclick='loadPdf(".json_encode($content).")'>". $content->title. "</li>";
+
+                                include("content-modal-component.php");
+                                
+                                echo "<input id='content-title' type='hidden' value='$content->title'>";
+                                echo "<input id='content-extention' type='hidden' value='$content->extention'>";
+                            }
+                        ?>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+  </div>
+
   <!-- end map section -->
 
   <section class="info_section layout_padding">
@@ -591,6 +683,13 @@
   <script type="text/javascript" src="js/jquery-3.4.1.min.js"></script>
   <script type="text/javascript" src="js/bootstrap.js"></script>
 
+  <!-- <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script> -->
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.3/dist/umd/popper.min.js"></script>
+<!-- <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script> -->
+
+<!-- PDF.js library -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/2.11.338/pdf.js"></script>
+
   <!-- shop scripts -->
 
   <!-- JavaScript Libraries starts -->
@@ -631,10 +730,14 @@
       });
     }
   </script>
+
+  <script src="js/content-resource-handler.js"></script>
+
+
   <!-- google map js -->
   
-  <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyA8eaHt9Dh5H57Zh0xVTqxVdBFCvFMqFjQ&callback=initMap">
-  </script>
+  <!-- <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyA8eaHt9Dh5H57Zh0xVTqxVdBFCvFMqFjQ&callback=initMap">
+  </script> -->
   <!-- end google map js -->
 </body>
 

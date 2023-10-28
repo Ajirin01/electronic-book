@@ -92,6 +92,15 @@ body {
   margin: 0 auto;
 }
 
+.hero_area{
+  z-index: 0 !important
+}
+
+.modal{
+  z-index: 99999;
+  /* background-color: red; */
+}
+
 .custom_nav-container.navbar-expand-lg .navbar-nav .nav-link {
   padding: 10px 30px;
   color: #343434;
@@ -155,7 +164,7 @@ a:focus {
 }
 
 .custom_nav-container {
-  z-index: 99999;
+  z-index: 1000;
   padding: 15px 0;
 }
 
