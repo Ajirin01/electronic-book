@@ -8,7 +8,11 @@
         </button>
       </div>
       <div id="modal-body" class="modal-body">
-        <div id="pdfViewer<?=$content->id?>"></div>
+        <div id="pdfViewer<?=$content->id?>">
+        <div style="height: 100px; width: 100%; text-align: center">
+            <h3 style="margin-top: 30px">Please wait, content loading...</h3>
+        </div>
+        </div>
         <div>
           <button id="prevPage<?=$content->id?>">Previous Page</button>
           <span id="currentPage<?=$content->id?>"></span>
