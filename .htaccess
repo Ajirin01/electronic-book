@@ -1,6 +1,5 @@
 <IfModule mod_rewrite.c>
     RewriteEngine On
-    RewriteBase /bookStoreTemplate/
 
     # Remove file extension
     RewriteCond %{REQUEST_FILENAME} !-d
