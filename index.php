@@ -1,3 +1,20 @@
+<?php
+  session_start();
+  // Include your database connection script here
+  include_once("db/db_connect.php");
+
+  // Fetch contents from the database
+  $query = "SELECT * FROM contents ORDER BY id ASC";
+  $result = $conn->query($query);
+
+  if ($result) {
+      // Fetch contents from the database
+      $contents = $result->fetch_all(MYSQLI_ASSOC);
+  } else {
+      // Handle database error if needed
+      $contents = array();
+  }
+?>
 <!DOCTYPE html>
 <html>
 
@@ -39,6 +56,11 @@
     <link href="shop/lib/animate/animate.min.css" rel="stylesheet">
     <link href="shop/lib/owlcarousel/assets/owl.carousel.min.css" rel="stylesheet">
 
+
+    <!-- PDF.js library -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/2.11.338/pdf.js"></script>
+
+
     <!-- Customized Bootstrap Stylesheet -->
     <link href="shop/css/style.css" rel="stylesheet">
 
@@ -60,72 +82,7 @@
     <!-- header section strats -->
     <header class="header_section">
       <div class="container">
-        <nav class="navbar navbar-expand-lg custom_nav-container pt-3">
-          <a class="navbar-brand" href="index.html">
-            <img src="images/Electronic_logo.png"  style="width: 45px; height: 44.5px;" /><span>
-              <!-- Tropiko -->
-              Electronic
-            </span>
-          </a>
-          <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
-            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-            <span class="navbar-toggler-icon"></span>
-          </button>
-
-          <div class="collapse navbar-collapse" id="navbarSupportedContent">
-            <div class="d-flex ml-auto flex-column flex-lg-row align-items-center">
-              <ul class="navbar-nav  ">
-                <li class="nav-item active">
-                  <a class="nav-link" href="index.html">Home <span class="sr-only">(current)</span></a>
-                </li>
-
-                <li class="nav-item active">
-                  <div class="btn-group" style="margin-top: 8px">
-                      <a href="#" class="btn btn-sm btn-light dropdown-toggle" data-toggle="dropdown">Resources</a>
-                      <div class="dropdown-menu dropdown-menu-right">
-                          <button class="dropdown-item" type="button" data-toggle="modal" data-target="#constantsModal">Physical Constants</button>
-                          <button class="dropdown-item" type="button" data-toggle="modal" data-target="#calculatorModal">Scientific Calculator</button>
-                      </div>
-                  </div>
-                </li>
-                
-                <li class="nav-item active">
-                  <a class="nav-link" data-toggle="modal" data-target="#contentMenuModal" href="#Contents">Contents <span class="sr-only">(current)</span></a>
-                </li>
-
-                <!-- <li class="nav-item active" style="margin-left: 5px">
-                  <div class="btn-group" style="margin-top: 8px">
-                      <a href="#" class="btn btn-sm btn-light dropdown-toggle" data-toggle="dropdown">Contents</a>
-                      <div class="dropdown-menu dropdown-menu-right">
-                          <button class="dropdown-item" type="button" data-toggle="modal" data-target="#constantsModal">Physical Constants</button>
-                          <button class="dropdown-item" type="button" data-toggle="modal" data-target="#calculatorModal">Scientific Calculator</button>
-                      </div>
-                  </div>
-                </li> -->
-                
-                
-                <!-- <li class="nav-item">
-                  <a class="nav-link" href="fruit.html"> Books</a>
-                </li>
-                <li class="nav-item">
-                  <a class="nav-link" href="service.html"> Services </a>
-                </li>
-                <li class="nav-item">
-                  <a class="nav-link" href="contact.html">Contact us</a>
-                </li> -->
-              </ul>
-              <!-- <form class="form-inline my-2 my-lg-0 ml-0 ml-lg-4 mb-3 mb-lg-0">
-                <button class="btn  my-2 my-sm-0 nav_search-btn" type="submit"></button>
-              </form> -->
-            </div>
-            <div class="ml-0 ml-lg-4 d-flex justify-content-center">
-              <a href="" class="btn px-0 ml-3">
-                  <i class="fas fa-shopping-cart text-primary"  style="color: black !important"></i>
-                  <span class="badge text-secondary border border-secondary rounded-circle" style="padding-bottom: 2px; color: black !important; border-color: black !important;">0</span>
-              </a>
-            </div>
-          </div>
-        </nav>
+        <?php include_once("nav-bar-component.php") ?>
       </div>
     </header>
     <!-- end header section -->
@@ -264,60 +221,71 @@
     <!-- end slider section -->
   </div>
 
-  <!-- service section -->
 
   <section class="service_section layout_padding ">
     <div class="container">
-      <h2 class="custom_heading">Our Visions</h2>
+      <h2 class="custom_heading">Contents</h2>
       <p class="custom_heading-text">
-        In the ever-evolving landscape of education, we dare to dream beyond the ordinary. 
-        Welcome to a space where innovation meets inspiration, and learning transcends the boundaries of tradition. 
-        Our vision is a glimpse into the future of education—a future we are actively shaping.
+      Welcome to a captivating exploration of the world of Electronics! In this carefully crafted collection, 
+      we invite you to embark on a fascinating journey through the chapters of our insightful book, 
+      "Electronics: Principles, Concepts and Practices."
       </p>
-      <div class=" layout_padding2">
-        <div class="card-deck">
-          <div class="card">
-            <img class="card-img-top" src="images/bulb.png" alt="Card image cap" />
-            <div class="card-body">
-              <h5 class="card-title">Vision Unveiled</h5>
-              <p class="card-text">
-                In a realm where textbooks have long dictated learning, our vision emerges as a beacon of change. 
-                "Vision Unveiled" explores a future where the traditional boundaries of electronics education dissolve. 
-                Like a guiding light, our commitment to innovation illuminates the path to a transformative learning experience.
-              </p>
+      <!-- Categories Start -->
+      <div class="row pb-3">
+      <?php foreach ($contents as $content) {?>
+        <div class="col-lg-3 col-md-4 col-sm-6 pb-1">
+          <a class="text-decoration-none" href="content_details.php?id=<?=$content['id']?>">
+          <!-- <a class="text-decoration-none" data-toggle='modal' href="content-details.php?id=<?=$content['id']?>" data-target='#pdfModal<?=$content['id']?>' onclick='loadPdf(<?=json_encode($content)?>)'> -->
+            <div class="cat-item d-flex align-items-center mb-4">
+              <div class="overflow-hidden" style="width: 100px; height: 100px;">
+                <canvas id="imgCanvas<?=$content['id']?>"></canvas>
+                <script>
+                  // Function to load PDF into canvas
+                  function loadPdf(pdfPath, canvasId) {
+                    var canvas = document.getElementById(canvasId);
+                    var context = canvas.getContext('2d');
+
+                    pdfjsLib.getDocument(pdfPath).promise.then(function(pdfDoc) {
+                      pdfDoc.getPage(1).then(function(page) {
+                        var viewport = page.getViewport({ scale: 1.5 });
+                        canvas.width = viewport.width;
+                        canvas.height = viewport.height;
+
+                        var renderContext = {
+                          canvasContext: context,
+                          viewport: viewport
+                        };
+                        page.render(renderContext);
+                      });
+                    });
+                  }
+
+                  // Call the function to load PDF for this specific item
+                  loadPdf('contents/<?=$content['title']?>.pdf', 'imgCanvas<?=$content['id']?>');
+                </script>
+                <!-- Additional content (if needed) -->
+                <img class="img-fluid" src="" alt="">
+              </div>
+              <div class="flex-fill pl-3">
+                <h6><?php echo $content['title']; ?></h6>
+                <small class="text-body"><?php echo $content['subtitle']; ?></small>
+              </div>
             </div>
-          </div>
-          <div class="card">
-            <img class="card-img-top" src="images/gear.png" alt="Card image cap" />
-            <div class="card-body">
-              <h5 class="card-title">Simulate to Elevate</h5>
-              <p class="card-text">
-                Within the dynamic landscape of education, "Simulate to Elevate" beckons a revolution. 
-                It's not just about pages and paragraphs; it's about the cogs of knowledge turning. 
-                Imagine a world where circuits come alive, and learning transcends the confines of conventional wisdom. 
-                This is our vision—where circuit simulations elevate education to unprecedented heights.
-              </p>
-            </div>
-          </div>
-          <div class="card">
-            <img class="card-img-top" src="images/rocket.png" alt="Card image cap" />
-            <div class="card-body">
-              <h5 class="card-title">Beyond Books</h5>
-              <p class="card-text">
-                In a universe beyond textbooks, our vision extends far beyond printed pages. 
-                "Beyond Books" is a testament to our commitment to shaping minds and empowering futures. 
-                Picture an educational journey fueled by innovation, symbolized by a rocket's ascent. 
-                This is our vision—a commitment to transformative education that propels minds toward limitless possibilities.
-              </p>
-            </div>
-          </div>
+          </a>
         </div>
-      </div>
-      <div class="d-flex justify-content-center">
-        <a href="" class="custom_dark-btn">
-          Read More
-        </a>
-      </div>
+      <?php include("content-modal-component.php"); } ?>
+      
+    </div>
+    
+    <div style="display: flex;
+            justify-content: center;
+            align-items: center;
+            margin: 0;
+            cursor: pointer">
+      <p data-toggle='modal' data-target='#contentCreateModal' class="text-uppercase custom_dark-btn">Add Content</p>
+
+    </div>
+    <!-- Categories End -->
     </div>
   </section>
 
@@ -408,33 +376,11 @@
                   <p class="custom_heading-text">
                     I have painstakingly gone through the textbook manuscript titled Electronics: Principles, 
                     Concepts and Practices written by Dr. Henry Ohize. I hereby submit the report of my assessment.
-                    <ul>
-                      <li>
-                        The textbook is a fundamental resource on Electronics as it introduces the subject from the point 
-                        of view of readers who are just having the first contact with the subject of Electronics. 
-                      </li>
-                      <li>
-                        The book is written in a very simple language that can easily be understood by a secondary 
-                        school leaver with fundamental knowledge of Mathematics, Physics, Introductory Technology 
-                        and Chemistry. 
-                      </li>
-                      <li>
-                        It is a fourteen-chapter textbook that covers basically all areas of Electronics required of a 
-                        tertiary level student of Engineering, Physics and Educational Technology, among others. 
-                      </li>
-                      <li>
-                        It is a fourteen-chapter textbook that covers basically all areas of Electronics required of a 
-                        tertiary level student of Engineering, Physics and Educational Technology, among others.
-                      </li>
-                      <li>
-                        Adequate number of illustrations in form of circuits, graphs and tables makes the textbook easy 
-                        to read and assimilate.
-                      </li>
-                      <li>
-                        The textbook explains the basic concepts of Electronics, including electronic materials and their 
-                        principles of operation, as well as their applications in building electronic circuits.
-                      </li>
-                    </ul> 
+                  </p>
+                  <p class="custom_headin-text">
+                    The book is written in a very simple language that can easily be understood by a secondary 
+                    school leaver with fundamental knowledge of Mathematics, Physics, Introductory Technology 
+                    and Chemistry. 
                   </p>
                 </div>
               </div>
@@ -545,6 +491,54 @@
     </div>
   </section>
 
+  <div class="modal fade" id="contentCreateModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-lg" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Create Content</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                  <div class="row">
+                    <div class="col-md-12 mr-auto">
+                      <form id="createContentForm" enctype="multipart/form-data">
+                        <div class="contact_form-container">
+                          <div class="row">
+                            <div class="col-12">
+                              <input id="title" name="title" class="form-control" type="text" placeholder="Title">
+                            </div>
+
+                            <div class="col-12" style="margin-top: 5px">
+                              <input id="subtitle" name="subtitle" class="form-control" type="text" placeholder="Add Subtitle">
+                            </div>
+
+                            <div class="col-12" style="margin-top: 5px">
+                              <textarea name="description" id="description" class="form-control" cols="30" rows="10"></textarea>
+                            </div>
+
+                            <div class="col-12" style="margin-top: 5px">
+                              <input type="file" name="content_file" id="content_file" class="form-control" accept="pdf">
+                            </div>
+
+                            <div class="mt-5">
+                              <button type="submit">
+                                Submit
+                              </button>
+                            </div>
+                          </div>
+
+                        </div>
+
+                      </form>
+                    </div>
+                  </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
   <div class="container modals-container">
     <div class="modal fade" id="constantsModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
       <div class="modal-dialog modal-lg" role="document">
@@ -590,15 +584,14 @@
                 <div class="modal-body">
                     <ul>
                         <?php
-                            $contents = file_get_contents("contents.json");
-
-                            foreach (json_decode($contents) as $key => $content) {
-                                echo "<li data-toggle='modal' data-target='#pdfModal$content->id' onclick='loadPdf(".json_encode($content).")'>". $content->title. "</li>";
+                        foreach ($contents as $key => $content) {
+                                $contentId = $content['id'];
+                                $contentTitle = $content['title'];
+                                echo "<li data-toggle='modal' data-target='#pdfModal$contentId' onclick='loadPdf(".json_encode($content).")'>". $contentTitle. "</li>";
 
                                 include("content-modal-component.php");
                                 
-                                echo "<input id='content-title' type='hidden' value='$content->title'>";
-                                echo "<input id='content-extention' type='hidden' value='$content->extention'>";
+                                echo "<input id='content-title' type='hidden' value='$contentTitle'>";
                             }
                         ?>
                     </ul>
@@ -687,9 +680,6 @@
 <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.3/dist/umd/popper.min.js"></script>
 <!-- <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script> -->
 
-<!-- PDF.js library -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/2.11.338/pdf.js"></script>
-
   <!-- shop scripts -->
 
   <!-- JavaScript Libraries starts -->
@@ -732,7 +722,8 @@
   </script>
 
   <script src="js/content-resource-handler.js"></script>
-
+  
+  <script src="js/ajax-create-content.js"></script>
 
   <!-- google map js -->
   

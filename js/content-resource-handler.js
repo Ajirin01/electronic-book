@@ -11,7 +11,7 @@ var contentId
 var pdfDoc = null;
 var currentPage = 1;
 var content_title
-var content_extention
+var content_file
 
 var pdfUrl
 
@@ -46,10 +46,10 @@ function renderPage(pageNumber) {
 }
 
 function loadPdf(content){
-    console.log(content.title)
+    console.log(content)
     content_title = content.title
-    content_extention = content.extention
     contentId = content.id
+    content_file = content.content_file
     currentPage = 1
 
     prevButton[content.id] = document.getElementById('prevPage'+ content.id);
@@ -61,8 +61,9 @@ function loadPdf(content){
 
     pdfViewer = document.getElementById('pdfViewer'+ content.id)
 
-    pdfUrl = 'contents/'+ content_title + "."+ content_extention;
+    pdfUrl = 'contents/'+ content_file;
 
+    console.log(pdfUrl)
 
     pdfjsLib.getDocument(pdfUrl).promise.then(function(doc) {
         pdfDoc = doc;

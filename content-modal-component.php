@@ -1,25 +1,25 @@
-<div class="modal fade" id="pdfModal<?=$content->id?>" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+<div class="modal fade" id="pdfModal<?=$contentId?>" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
   <div class="modal-dialog modal-lg" role="document">
     <div class="modal-content">
       <div class="modal-header">
-        <h5 class="modal-title" id="exampleModalLabel"><?=$content->title?> (Preview)</h5>
+        <h5 class="modal-title" id="exampleModalLabel"><?=$contentTitle?> (Preview)</h5>
         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
           <span aria-hidden="true">&times;</span>
         </button>
       </div>
       <div id="modal-body" class="modal-body">
-        <div id="pdfViewer<?=$content->id?>">
+        <div id="pdfViewer<?=$contentId?>">
         <div style="height: 100px; width: 100%; text-align: center">
             <h3 style="margin-top: 30px">Please wait, content loading...</h3>
         </div>
         </div>
         <div>
-          <button id="prevPage<?=$content->id?>">Previous Page</button>
-          <span id="currentPage<?=$content->id?>"></span>
-          <button id="nextPage<?=$content->id?>">Next Page</button>
-          <input type="number" id="pageNumberInput<?=$content->id?>" placeholder="Go to Page">
-          <button id="goToPageButton<?=$content->id?>">Go</button>
-          <button id="downloadButton<?=$content->id?>">Download PDF</button> <!-- Add this button -->
+          <button id="prevPage<?=$contentId?>">Previous Page</button>
+          <span id="currentPage<?=$contentId?>"></span>
+          <button id="nextPage<?=$contentId?>">Next Page</button>
+          <input type="number" id="pageNumberInput<?=$contentId?>" placeholder="Go to Page">
+          <button id="goToPageButton<?=$contentId?>">Go</button>
+          <button id="downloadButton<?=$contentId?>">Download PDF</button> <!-- Add this button -->
         </div>
       </div>
     </div>
