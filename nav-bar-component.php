@@ -1,5 +1,5 @@
 <nav class="navbar navbar-expand-lg custom_nav-container pt-3">
-    <a class="navbar-brand" href="/index">
+    <a class="navbar-brand" href="index">
     <img src="images/Electronic_logo.png"  style="width: 45px; height: 44.5px;" /><span>
         <!-- Tropiko -->
         Electronic
