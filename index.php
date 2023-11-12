@@ -98,7 +98,7 @@
                     <div class="col-md-6">
                       <div class="slider_item-detail">
                         <div>
-                          <h1>
+                          <h1 style="font-size: 2.5rem">
                             Revolutionize Your <br />
                             Understanding of Electronics.
                           </h1>
@@ -106,10 +106,10 @@
                             Embark on a journey that redefines learning through circuit simulations.
                           </p>
                           <div class="d-flex">
-                            <a href="" class="text-uppercase custom_orange-btn mr-3">
+                            <a href="https://flutterwave.com/store/ajirinibi/eyf3fo2vsic3m0" class="text-uppercase custom_orange-btn mr-3">
                               Shop Now
                             </a>
-                            <a href="" class="text-uppercase custom_dark-btn">
+                            <a onclick="scrollToElement()" href="" class="text-uppercase custom_dark-btn">
                               Contact Us
                             </a>
                           </div>
@@ -119,7 +119,7 @@
                     <div class="col-md-6">
                       <div class="slider_img-box">
                         <div>
-                          <img src="images/Electronic_logo.png" style="width: 400px; height: 330px;" alt="" class="" />
+                          <img src="images/Electronic_logo.png" alt="" class="" />
                         </div>
                       </div>
                     </div>
@@ -145,10 +145,10 @@
                             Discover Electronics anew through our unique blend of theory, hands-on simulations, and a curriculum designed for the future.
                           </p>
                           <div class="d-flex">
-                            <a href="" class="text-uppercase custom_orange-btn mr-3">
+                            <a href="https://flutterwave.com/store/ajirinibi/eyf3fo2vsic3m0" class="text-uppercase custom_orange-btn mr-3">
                               Shop Now
                             </a>
-                            <a href="" class="text-uppercase custom_dark-btn">
+                            <a onclick="scrollToElement()" href="" class="text-uppercase custom_dark-btn">
                               Contact Us
                             </a>
                           </div>
@@ -184,10 +184,10 @@
                             This isn't just a book; it's a gateway to a new era of understanding electronics, blending theory with real-world simulations.
                           </p>
                           <div class="d-flex">
-                            <a href="" class="text-uppercase custom_orange-btn mr-3">
+                            <a href="https://flutterwave.com/store/ajirinibi/eyf3fo2vsic3m0" class="text-uppercase custom_orange-btn mr-3">
                               Shop Now
                             </a>
-                            <a href="" class="text-uppercase custom_dark-btn">
+                            <a onclick="scrollToElement()" href="" class="text-uppercase custom_dark-btn">
                               Contact Us
                             </a>
                           </div>
@@ -197,7 +197,7 @@
                     <div class="col-md-6">
                       <div class="slider_img-box">
                         <div>
-                          <img src="images/book-cover.png" style="width: 400px; height: 330px;" alt="" class="" />
+                          <img src="images/book-cover.png" alt="" class="" />
                         </div>
                       </div>
                     </div>
@@ -276,17 +276,18 @@
       <?php include("content-modal-component.php"); } ?>
       
     </div>
-    
-    <div style="display: flex;
-            justify-content: center;
-            align-items: center;
-            margin: 0;
-            cursor: pointer">
-      <p data-toggle='modal' data-target='#contentCreateModal' class="text-uppercase custom_dark-btn">Add Content</p>
+    <?php if(isset($_SESSION['user']) && $_SESSION['user']['role'] === "admin"){ ?>
+      <div style="display: flex;
+              justify-content: center;
+              align-items: center;
+              margin: 0;
+              cursor: pointer">
+        <p data-toggle='modal' data-target='#contentCreateModal' class="text-uppercase custom_dark-btn">Add Content</p>
 
-    </div>
-    <!-- Categories End -->
-    </div>
+      </div>
+      <!-- Categories End -->
+      </div>
+    <?php } ?>
   </section>
 
   <!-- end service section -->
@@ -317,7 +318,7 @@
               mathematical concepts and is suitable for introductory-level teaching of Electronics in all institutions.
             </p>
             <div>
-              <a href="" class="custom_dark-btn">
+              <a href="https://flutterwave.com/store/ajirinibi/eyf3fo2vsic3m0" class="custom_dark-btn">
                 Buy Now
               </a>
             </div>
@@ -325,7 +326,7 @@
         </div>
         <div class="col-md-4 d-flex justify-content-center align-items-center">
           <div class="fruit_img-box d-flex justify-content-center align-items-center">
-            <img src="images/book-cover3.jpg" alt="" class="" width="250px" style="box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.208);" />
+            <img src="images/book-cover3.jpg" alt="" class="" width="350px" style="box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.208);" />
           </div>
         </div>
       </div>
@@ -440,31 +441,31 @@
   <!-- end client section -->
 
   <!-- contact section -->
-  <section class="contact_section layout_padding">
+  <section class="contact_section layout_padding" id="targetElement">
     <div class="container">
       <h2 class="font-weight-bold">
         Contact Us
       </h2>
       <div class="row">
         <div class="col-md-8 mr-auto">
-          <form action="">
+          <form action="handlers/send-message.php" method="post">
             <div class="contact_form-container">
               <div>
                 <div>
-                  <input type="text" placeholder="Name">
+                  <input type="text" name="name" required placeholder="Name">
                 </div>
                 <div>
-                  <input type="text" placeholder="Phone Number">
+                  <input type="text" name="phone" required placeholder="Phone Number">
                 </div>
                 <div>
-                  <input type="email" placeholder="Email">
+                  <input type="email" name="email" required placeholder="Email">
                 </div>
 
                 <div class="mt-5">
-                  <input type="text" placeholder="Message">
+                  <input type="text" name="message" required placeholder="Message">
                 </div>
                 <div class="mt-5">
-                  <button type="submit">
+                  <button type="submit" name="submit">
                     send
                   </button>
                 </div>
@@ -473,12 +474,47 @@
             </div>
 
           </form>
+
+          <?php if(isset($_SESSION['message_sent']) && $_SESSION['message_sent'] != ""){
+              echo "<script>alert('".$_SESSION['message_sent']."')</script>";
+              $_SESSION['message_sent'] = ""; 
+             } 
+          ?>
+
+          <?php if(isset($_SESSION['message_failed']) && $_SESSION['message_failed'] != ""){
+              echo "<script>alert('".$_SESSION['message_failed']."')</script>";
+              $_SESSION['message_failed'] = ""; 
+             } 
+          ?>
         </div>
       </div>
     </div>
   </section>
   <!-- end contact section -->
 
+  <!-- Vendor Start -->
+  <div class="container-fluid py-5">
+        <div class="row px-xl-5">
+            <div class="col-lg-4">
+                <div class="bg-light p-4">
+                    <img src="images/Tetfund-png-logo.png" width="154px" height="100px" alt="tetfund logo">
+                </div>
+            </div>
+
+            <div class="col-lg-4">
+                <div class="bg-light p-4">
+                    <img src="images/NUC.png" width="250px" height="100px" alt="nuc logo">
+                </div>
+            </div>
+
+            <div class="col-lg-4">
+                <div class="bg-light p-4">
+                    <img src="images/federal-ministry of-education.png" width="300px" height="100px" alt="fmd logo">
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Vendor End -->
 
   <!-- map section -->
   <section class="map_section">
@@ -603,64 +639,7 @@
 
   <!-- end map section -->
 
-  <section class="info_section layout_padding">
-    <div class="container">
-      <div class="row">
-        <div class="col-md-4">
-          <h5>
-              MEET THE AUTHOR
-          </h5>
-          <!-- <div> -->
-            <img src="images/author2.png" style="width: 150px; height: 270px; margin-top: -40px;" alt="">
-          <!-- </div> -->
-        </div>
-        <div class="col-md-4">
-          <p>
-            Henry Ohiani Ohize is a Senior Lecturer in the Department of Electrical and 
-            Electronics Engineering at the Federal University of Technology, Minna, Nigeria. He 
-            obtained his doctorate degree from the University of Cape Town, South Africa, in 
-            2017. With over 15 years of teaching experience in various universities, he has been 
-            exposed to the cultural diversity of students and their idiosyncrasies
-          </p>
-        </div>
-        <div class="col-md-4">
-          <div class="social_container">
-            <h5>
-              Follow Us
-            </h5>
-            <div class="social-box">
-              <a href="">
-                <img src="images/fb.png" alt="">
-              </a>
-
-              <a href="">
-                <img src="images/twitter.png" alt="">
-              </a>
-              <a href="">
-                <img src="images/linkedin.png" alt="">
-              </a>
-              <a href="">
-                <img src="images/instagram.png" alt="">
-              </a>
-            </div>
-          </div>
-          <div class="subscribe_container">
-            <h5>
-              Subscribe Now
-            </h5>
-            <div class="form_container">
-              <form action="">
-                <input type="email">
-                <button type="submit">
-                  Subscribe
-                </button>
-              </form>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </section>
+  <?php include_once("footer-component.php"); ?>
 
 
 
@@ -696,6 +675,16 @@
   <script src="shop/js/main.js"></script>
   <!-- JavaScript Libraries ends -->
 
+  <script>
+    function scrollToElement() {
+        // Get a reference to the target element
+        event.preventDefault()
+        var targetElement = document.getElementById('targetElement');
+
+        // Scroll to the target element
+        targetElement.scrollIntoView({ behavior: 'smooth' });
+    }
+  </script>
 
   <script>
     // This example adds a marker to indicate the position of Bondi Beach in Sydney,

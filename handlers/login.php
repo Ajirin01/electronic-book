@@ -8,7 +8,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['login'])) {
     $password = $_POST['password'];
 
     // Retrieve user from the database based on email
-    $getUserQuery = "SELECT id, username, password FROM users WHERE email = ?";
+    $getUserQuery = "SELECT * FROM users WHERE email = ?";
     $stmt = $conn->prepare($getUserQuery);
     $stmt->bind_param('s', $email);
     $stmt->execute();
