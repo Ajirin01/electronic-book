@@ -25,7 +25,7 @@ function fetchComments() {
                     // Process each comment item and append to the DOM
                     // Adjust based on your UI structure
                     // console.log(comment);
-                    const commentElement = createCommentElement(comment.username, comment.created_at, comment.comment_text);
+                    const commentElement = createCommentElement(comment.username, comment.created_at, comment.comment_text, comment.id);
 
                     // Append the comment element to the comment area
                     commentArea.appendChild(commentElement);
@@ -56,7 +56,11 @@ function fetchComments() {
     });
 }
 
-function createCommentElement(author, date, commentText) {
+function deleteComment(id){
+    console.log("you are deleting comment: ", id)
+}
+
+function createCommentElement(author, date, commentText, commentId) {
     // Create a new div element for the comment
     const commentDiv = document.createElement('div');
     commentDiv.classList.add('media', 'mb-4');
@@ -71,7 +75,39 @@ function createCommentElement(author, date, commentText) {
     // Format the date in a human-readable format
     const formattedDate = commentDate.toLocaleString();
 
-    mediaBodyDiv.innerHTML = `<div class="media-body">
+    const deleteComment = (id) => {
+        console.log("you are deleting comment: ", id)
+    }
+
+    // mediaBodyDiv.innerHTML = `<div class="media-body" ondblclick="()=> {return ${deleteComment(commentId)}}">
+    mediaBodyDiv.innerHTML = `<div class="media-body" ondblclick="
+        let deleteMyComment = confirm('are you sure you want to delete this comment?');
+        if(deleteMyComment){
+            $.ajax({
+                type: 'POST',
+                url: 'handlers/delete_comment.php',
+                data: { delete: ${true}, commentId: ${commentId} },
+                dataType: 'json',
+                success: function (response) {
+                    if (response.success) {
+                        // Content deleted successfully
+                        console.log(response.message);
+                        alert('Comment successfully deleted!')
+    
+                        window.location.reload()
+                    } else {
+                        // Failed to delete content
+                        console.error(response.error);
+                    }
+                },
+                error: function (xhr, status, error) {
+                    // AJAX request failed
+                    console.error('AJAX Request Error:', status, error);
+                    // Optionally, show an error message or perform additional actions
+                }
+            });
+        };
+    ">
             <h6>${author}<small> - <i>${formattedDate}</i></small></h6>
             <p>${commentText}</p>
         </div>`;
@@ -82,16 +118,10 @@ function createCommentElement(author, date, commentText) {
     return commentDiv;
 }
 
-
-
 fetchComments()
 
 // Event listener for the load more comments button
 $('#loadMoreCommentsBtn').on('click', function () {
     fetchComments();
 });
-
-// Initial load (you may call this function when loading the content initially)
-// const initialContentId = /* Set the appropriate content ID based on your implementation */;
-// fetchComments(initialContentId);
 })

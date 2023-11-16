@@ -109,7 +109,7 @@
                             <a href="https://flutterwave.com/store/ajirinibi/eyf3fo2vsic3m0" class="text-uppercase custom_orange-btn mr-3">
                               Shop Now
                             </a>
-                            <a onclick="scrollToElement()" href="" class="text-uppercase custom_dark-btn">
+                            <a onclick="scrollToContactUs()" href="" class="text-uppercase custom_dark-btn">
                               Contact Us
                             </a>
                           </div>
@@ -148,7 +148,7 @@
                             <a href="https://flutterwave.com/store/ajirinibi/eyf3fo2vsic3m0" class="text-uppercase custom_orange-btn mr-3">
                               Shop Now
                             </a>
-                            <a onclick="scrollToElement()" href="" class="text-uppercase custom_dark-btn">
+                            <a onclick="scrollToContactUs()" href="" class="text-uppercase custom_dark-btn">
                               Contact Us
                             </a>
                           </div>
@@ -187,7 +187,7 @@
                             <a href="https://flutterwave.com/store/ajirinibi/eyf3fo2vsic3m0" class="text-uppercase custom_orange-btn mr-3">
                               Shop Now
                             </a>
-                            <a onclick="scrollToElement()" href="" class="text-uppercase custom_dark-btn">
+                            <a onclick="scrollToContactUs()" href="" class="text-uppercase custom_dark-btn">
                               Contact Us
                             </a>
                           </div>
@@ -261,7 +261,7 @@
                   }
 
                   // Call the function to load PDF for this specific item
-                  loadPdf('contents/<?=$content['title']?>.pdf', 'imgCanvas<?=$content['id']?>');
+                  loadPdf('contents/<?=$content['content_file']?>', 'imgCanvas<?=$content['id']?>');
                 </script>
                 <!-- Additional content (if needed) -->
                 <img class="img-fluid" src="" alt="">
@@ -272,8 +272,14 @@
               </div>
             </div>
           </a>
+          <i class="fa fa-pen" data-toggle='modal' data-target="#contentEditModal<?=$content['id']?>"></i><i class="fa fa-trash" style="margin-left: 20px" onclick="deleteContent(<?=$content['id']?>)"></i>
         </div>
-      <?php include("content-modal-component.php"); } ?>
+
+      <?php 
+        include("content-modal-component.php");
+        include("edit-content-component.php");
+        } 
+      ?>
       
     </div>
     <?php if(isset($_SESSION['user']) && $_SESSION['user']['role'] === "admin"){ ?>
@@ -555,7 +561,7 @@
                             </div>
 
                             <div class="col-12" style="margin-top: 5px">
-                              <input type="file" name="content_file" id="content_file" class="form-control" accept="pdf">
+                              <input type="file" name="content_file" id="content_file" class="form-control" accept=".pdf">
                             </div>
 
                             <div class="mt-5">
@@ -676,7 +682,7 @@
   <!-- JavaScript Libraries ends -->
 
   <script>
-    function scrollToElement() {
+    function scrollToContactUs() {
         // Get a reference to the target element
         event.preventDefault()
         var targetElement = document.getElementById('targetElement');
@@ -713,6 +719,9 @@
   <script src="js/content-resource-handler.js"></script>
   
   <script src="js/ajax-create-content.js"></script>
+  <script src="js/ajax-edit-content.js"></script>
+  <script src="js/ajax-delete-content.js"></script>
+  
 
   <!-- google map js -->
   

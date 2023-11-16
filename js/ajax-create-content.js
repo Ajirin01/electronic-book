@@ -27,6 +27,9 @@ $(document).ready(function () {
                     $("#content_file").val("")
 
                     alert("Content created successfully")
+                    window.location.reload()
+                }else{
+                    alert(response.error)
                 }
                 // You can redirect or perform other actions based on the response
             },
