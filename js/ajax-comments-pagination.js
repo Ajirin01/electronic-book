@@ -75,10 +75,6 @@ function createCommentElement(author, date, commentText, commentId) {
     // Format the date in a human-readable format
     const formattedDate = commentDate.toLocaleString();
 
-    const deleteComment = (id) => {
-        console.log("you are deleting comment: ", id)
-    }
-
     // mediaBodyDiv.innerHTML = `<div class="media-body" ondblclick="()=> {return ${deleteComment(commentId)}}">
     mediaBodyDiv.innerHTML = `<div class="media-body" ondblclick="
         let deleteMyComment = confirm('are you sure you want to delete this comment?');
@@ -98,6 +94,7 @@ function createCommentElement(author, date, commentText, commentId) {
                     } else {
                         // Failed to delete content
                         console.error(response.error);
+                        alert(response.error)
                     }
                 },
                 error: function (xhr, status, error) {

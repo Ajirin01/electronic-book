@@ -149,6 +149,9 @@
                                         <label for="message">Your Comment *</label>
                                         <textarea name="commentText" id="commentText" cols="30" rows="5" class="form-control"></textarea>
                                         <input type="hidden" name="contentId" id="contentId" value="<?= $contentId ?>"> <!-- Replace '1' with the actual content ID -->
+                                        <?php if(isset($_SESSION['user'])){ ?>
+                                          <input type="hidden" name="userRole" id="userRole" value="<?= $_SESSION['user']['role'] ?>"> <!-- Replace '1' with the actual content ID -->
+                                        <?php } ?>
                                     </div>
                                     <div class="form-group mb-0">
                                         <?php if(isset($_SESSION['user'])){ ?>
