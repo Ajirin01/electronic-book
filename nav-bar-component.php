@@ -14,7 +14,7 @@
     <div class="d-flex ml-auto flex-column flex-lg-row align-items-center">
         <ul class="navbar-nav  ">
         <li class="nav-item active">
-            <a class="nav-link" href="index.html">Home <span class="sr-only">(current)</span></a>
+            <a class="nav-link" href="index">Home <span class="sr-only">(current)</span></a>
         </li>
 
         <li class="nav-item active">
@@ -42,11 +42,11 @@
         <?php ;} ?>
 
     </div>
-    <div class="ml-0 ml-lg-4 d-flex justify-content-center">
+    <!-- <div class="ml-0 ml-lg-4 d-flex justify-content-center">
         <a href="" class="btn px-0 ml-3">
             <i class="fas fa-shopping-cart text-primary"  style="color: black !important"></i>
             <span class="badge text-secondary border border-secondary rounded-circle" style="padding-bottom: 2px; color: black !important; border-color: black !important;">0</span>
         </a>
-    </div>
+    </div> -->
     </div>
 </nav>
