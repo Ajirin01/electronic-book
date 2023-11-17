@@ -272,7 +272,9 @@
               </div>
             </div>
           </a>
-          <i class="fa fa-pen" data-toggle='modal' data-target="#contentEditModal<?=$content['id']?>"></i><i class="fa fa-trash" style="margin-left: 20px" onclick="deleteContent(<?=$content['id']?>)"></i>
+          <?php if(isset($_SESSION['user']) && $_SESSION['user']['role'] === "admin"){ ?>
+            <i class="fa fa-pen" data-toggle='modal' data-target="#contentEditModal<?=$content['id']?>"></i><i class="fa fa-trash" style="margin-left: 20px" onclick="deleteContent(<?=$content['id']?>)"></i>
+          <?php } ?>
         </div>
 
       <?php 
