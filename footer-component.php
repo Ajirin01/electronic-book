@@ -24,18 +24,18 @@
               Follow Us
             </h5>
             <div class="social-box">
-              <a href="">
+              <a href="https://www.facebook.com/henry.ohize">
                 <img src="images/fb.png" alt="">
               </a>
 
-              <a href="">
+              <a href="https://twitter.com/henryohiani">
                 <img src="images/twitter.png" alt="">
               </a>
-              <a href="">
+              <a href="https://www.linkedin.com/in/henry-ohize-883a9297/">
                 <img src="images/linkedin.png" alt="">
               </a>
-              <a href="">
-                <img src="images/instagram.png" alt="">
+              <a href="https://scholar.google.com/citations?user=5OWq8ZMAAAAJ&hl=en">
+                <img src="images/google-scholar.png" alt="">
               </a>
             </div>
           </div>
