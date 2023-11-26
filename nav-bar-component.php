@@ -1,8 +1,8 @@
 <nav class="navbar navbar-expand-lg custom_nav-container pt-3">
-    <a class="navbar-brand" href="index">
+    <a class="navbar-brand" href="/">
     <img src="images/Electronic_logo.png"  style="width: 45px; height: 44.5px;" /><span>
         <!-- Tropiko -->
-        Electronic
+        Electronics
     </span>
     </a>
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
@@ -14,22 +14,30 @@
     <div class="d-flex ml-auto flex-column flex-lg-row align-items-center">
         <ul class="navbar-nav  ">
         <li class="nav-item active">
-            <a class="nav-link" href="index">Home <span class="sr-only">(current)</span></a>
+            <a class="nav-link" href="/">Home <span class="sr-only">(current)</span></a>
+        </li>
+
+        <li class="nav-item active">
+            <a class="nav-link" href="about">About <span class="sr-only"></span></a>
         </li>
 
         <li class="nav-item active">
             <div class="btn-group" style="margin-top: 8px">
                 <a href="#" class="btn btn-sm btn-light dropdown-toggle" data-toggle="dropdown">Resources</a>
                 <div class="dropdown-menu dropdown-menu-right">
+                    <?php if(isset($_SESSION['user']) && $_SESSION['user']['role'] === "admin"){ ?>
+                        <button class="dropdown-item" type="button" data-toggle="modal" data-target="#resourceCreateModal">Create Resource</button>
+                    <?php } ?>
                     <button class="dropdown-item" type="button" data-toggle="modal" data-target="#constantsModal">Physical Constants</button>
                     <button class="dropdown-item" type="button" data-toggle="modal" data-target="#calculatorModal">Scientific Calculator</button>
+                    <button class="dropdown-item" type="button" data-toggle="modal" data-target="#contentMenuModal" href="#Contents">Download Resources</button>
                 </div>
             </div>
         </li>
         
-        <li class="nav-item active">
+        <!-- <li class="nav-item active">
             <a class="nav-link" data-toggle="modal" data-target="#contentMenuModal" href="#Contents">Contents <span class="sr-only">(current)</span></a>
-        </li>
+        </li> -->
 
         <?php if(isset($_SESSION['user'])){ ?>
             <li class="nav-item active">

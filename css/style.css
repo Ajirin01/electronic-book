@@ -1,6 +1,6 @@
 body {
   font-family: 'Poppins', sans-serif;
-  color: #000000;
+  color: #042769;
   background-color: #ffffff;
 }
 
@@ -42,22 +42,22 @@ body {
 }
 
 .custom_dark-btn {
-  background-color: #000000;
+  background-color: #042769;
 }
 
 .custom_dark-btn:hover {
-  border: 1px solid #000000;
-  color: #000000;
+  border: 1px solid #042769;
+  color: #042769;
   background-color: transparent;
 }
 
 .custom_orange-btn {
-  background-color: #fc5d35;
+  background-color: #042769;
 }
 
 .custom_orange-btn:hover {
-  border: 1px solid #fc5d35;
-  color: #fc5d35;
+  border: 1px solid #042769;
+  color: #042769;
   background-color: transparent;
 }
 
@@ -180,7 +180,7 @@ a:focus {
 .quote_btn-container a {
   display: inline-block;
   padding: 5px 15px;
-  background-color: #fc5d35;
+  background-color: #042769;
   color: #f7f7f7;
   font-size: 14px;
   text-transform: uppercase;
@@ -268,12 +268,12 @@ a:focus {
 
 .slider_section .custom_carousel-control .carousel-control-prev {
   background-image: url(../images/prev.png);
-  background-color: #fc5d35;
+  background-color: #042769;
 }
 
 .slider_section .custom_carousel-control .carousel-control-next {
   background-image: url(../images/next.png);
-  background-color: #000000;
+  background-color: #042769;
 }
 
 /* end slider section */
@@ -292,7 +292,7 @@ a:focus {
 }
 
 .service_section .card .card-title {
-  color: #fc5d35;
+  color: #042769;
 
 }
 
@@ -315,7 +315,7 @@ a:focus {
 }
 
 .service_section .card:hover::after {
-  background-color: #fc5d35;
+  background-color: #042769;
 }
 
 /* end service section */
@@ -394,7 +394,7 @@ a:focus {
 
 .client_section .custom_carousel-control .carousel-control-prev:hover,
 .client_section .custom_carousel-control .carousel-control-next:hover {
-  background-color: #fc5d35;
+  background-color: #042769;
 }
 
 .client_section .custom_carousel-control .carousel-control-prev {
@@ -431,7 +431,7 @@ a:focus {
 
 .contact_form-container button {
   border: none;
-  background-color: #fc5d35;
+  background-color: #042769;
   color: #fff;
   padding: 8px 40px;
   text-transform: uppercase;
@@ -480,7 +480,7 @@ a:focus {
 }
 
 .info_section .form_container button {
-  background-color: #fc5d35;
+  background-color: #042769;
   border: none;
   outline: none;
   color: #fff;

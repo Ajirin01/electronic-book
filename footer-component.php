@@ -11,11 +11,12 @@
         </div>
         <div class="col-md-4">
           <p>
-            Henry Ohiani Ohize is a Senior Lecturer in the Department of Electrical and 
-            Electronics Engineering at the Federal University of Technology, Minna, Nigeria. He 
-            obtained his doctorate degree from the University of Cape Town, South Africa, in 
-            2017. With over 15 years of teaching experience in various universities, he has been 
-            exposed to the cultural diversity of students and their idiosyncrasies
+          I am a senior lecturer in the Department of Electrical and Electronics Engineering, 
+          boasting over 15 years of valuable teaching experience across various reputable universities
+           in Nigeria and South Africa. I am a proud alumnus of the University of Cape Town, South Africa, 
+           having completed my doctoral degree there. Throughout my academic journey, 
+           I have been honored to secure multiple grants, a testament to my dedication and contributions to the field.
+
           </p>
         </div>
         <div class="col-md-4">
