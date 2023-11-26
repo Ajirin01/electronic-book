@@ -41,7 +41,7 @@
   <meta name="description" content="" />
   <meta name="author" content="" />
 
-  <title>Electronic</title>
+  <title>Electronics</title>
 
   <!-- slider stylesheet -->
   <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.1.3/assets/owl.carousel.min.css" />
