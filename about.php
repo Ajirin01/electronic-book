@@ -134,7 +134,7 @@
             </div>
             <div class="col-md-4 d-flex justify-content-center align-items-center">
                 <div class="fruit_img-box d-flex justify-content-center align-items-center">
-                    <img src="images/author2.png" alt="" class="" width="350px" style="box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.208); margin-top: -50px" />
+                    <img src="images/author2.jpg" alt="" class="" width="350px" style="box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.208); margin-top: -50px" />
                 </div>
             </div>
         </div>

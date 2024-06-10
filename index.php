@@ -81,7 +81,7 @@
                     <div class="col-md-6">
                       <div class="slider_img-box">
                         <div>
-                          <img src="images/book-cover1.png" alt="" class="" />
+                          <img src="images/book-cover3.jpg" alt="" class="" />
                         </div>
                       </div>
                     </div>

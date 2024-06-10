@@ -6,7 +6,7 @@
               MEET THE AUTHOR
           </h5>
           <!-- <div> -->
-            <img src="images/author2.png" style="width: 150px; height: 270px; margin-top: -40px;" alt="">
+            <img src="images/author2.png" style="width: 200px; height: 270px; margin-top: 0px;" alt="">
           <!-- </div> -->
         </div>
         <div class="col-md-4">
